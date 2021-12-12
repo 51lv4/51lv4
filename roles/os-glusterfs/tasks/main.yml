@@ -1,0 +1,13 @@
+---
+# tasks file for os-glusterfs
+
+- name: Instalação do GlusterFS em Red Hat
+  import_tasks: redhat.yml
+  when: ansible_facts['os_family']|lower == 'redhat'
+
+- name: Instalação do GlusterFS em Debian.
+  import_tasks: debian.yml
+  when: ansible_facts['os_family']|lower == 'debian'
+
+- name: Garantir que o GlusterFS está a correr e ativo no boot
+  service: "name={{ glusterfs_daemon }} state=started enabled=yes"
